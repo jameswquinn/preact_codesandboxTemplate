@@ -1,18 +1,18 @@
 /** @jsx h */
-import { h, Component, render } from "preact";
+import { h, Component, render, Fragment } from "preact";
 import { useContext, useReducer, useState, useCallback, useRef, useEffect, useLayoutEffect, useMemo } from "preact/hooks"
 import { Router } from "preact-router";
 import AsyncRoute from 'preact-async-route';
 import * as timeago from 'timeago.js';
 
-function useCounter() {
+const useCounter = () => {
     const [value, setValue] = useState(0);
     const increment = useCallback(() => setValue(value + 1), [value]);
     return { value, increment };
 }
 
 // First counter
-function CounterA() {
+const CounterA = () => {
     const { value, increment } = useCounter();
     return (
         <div>
@@ -24,7 +24,7 @@ function CounterA() {
 }
 
 // Second counter which renders a different output.
-function CounterB() {
+const CounterB = () => {
     const { value, increment } = useCounter();
     return (
         <div>
@@ -35,4 +35,13 @@ function CounterB() {
     );
 }
 
-render(<CounterA />, document.body);
+
+const App = () => {
+    return(
+        <Fragment>
+        <CounterA />
+        <CounterB />
+        </Fragment>
+    )
+}
+render(<App />, document.body);
